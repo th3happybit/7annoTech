@@ -6,13 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: digitalocean.com/php
+    image: 7annotech:0.1
     container_name: app
     restart: unless-stopped
     tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
     working_dir: /var/www
     networks:
       - app-network
@@ -21,6 +18,7 @@ services:
        - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     depends_on:
       - "db"
+      - "redis"
 
   #Nginx Service
   webserver:
@@ -48,17 +46,23 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: store
-      MYSQL_USER: store
-      MYSQL_ROOT_PASSWORD: blackholE
-      MYSQL_PASSWORD: store
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=homestead
+      - MYSQL_ROOT_PASSWORD=blackholE
     networks:
       - app-network
     volumes:
       - dbdata:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/my.cnf
+      
+  redis:
+    image: redis:alpine
+    container_name: redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
 
 #Docker Networks
 networks:
@@ -68,4 +72,6 @@ networks:
 #Volumes
 volumes:
   dbdata:
+    driver: local
+  redis_data:
     driver: local

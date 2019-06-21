@@ -86,3 +86,35 @@ All this containers are connected together in a local virtual LAN and can't be a
 - run `sudo cp vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64 /usr/local/bin/wkhtmltopdf`
 - run `sudo chmod +x /usr/local/bin/wkhtmltopdf`
 - if it didn't work contact me (renken) and/else read [the official installation guide](https://github.com/barryvdh/laravel-snappy)
+
+### Deploy Using Docker 
+
+Getting a local instance of 7annoTech up and running is very quickly using docker-compose
+
+1 - Clone the repository and cd to the project folder:
+```bash
+$ git clone https://github.com/th3happybit/7anooTech
+cd LaraHack 
+```
+
+2 - Mount the app directory and install the dependencies:
+```bash
+$ sudo chown -R www-data:www-data 'LocalAppPath'
+'LocalAppPath' ex: ~/7anooTech
+```
+
+3 - copy the config file:
+```bash
+$ cp .env.example.docker .env
+```
+
+4 - Mount the app directory and install the dependencies:
+```bash
+$ docker run --rm -v $(pwd):/app composer install --no-dev
+```
+
+5 - Build the app image and run the services:
+```bash
+$ docker-compose up -d
+```
+
