@@ -94,7 +94,7 @@ Getting a local instance of 7annoTech up and running is very quickly using docke
 1 - Clone the repository and cd to the project folder:
 ```bash
 $ git clone https://github.com/th3happybit/7anooTech
-cd LaraHack 
+cd 7anooTech
 ```
 
 2 - Mount the app directory and install the dependencies:
