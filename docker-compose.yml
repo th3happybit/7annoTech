@@ -3,9 +3,7 @@ services:
 
   #PHP Service
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     image: 7annotech:0.1
     container_name: app
     restart: unless-stopped
